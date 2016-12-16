@@ -8,3 +8,5 @@ Goals:
 -Utilize virtual reality to visualize data
 -Coordinate search and rescue missions
 
+Members:
+-Garry
