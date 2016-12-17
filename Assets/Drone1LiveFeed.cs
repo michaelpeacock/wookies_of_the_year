@@ -8,6 +8,7 @@ public class Drone1LiveFeed : MonoBehaviour {
     public List<Texture2D> myTextures = new List<Texture2D>();
     int frame = 0;
     int delay = 0;
+    static public bool isEnabled = false;
 	// Use this for initialization
 	void Start () {
         DirectoryInfo d = new DirectoryInfo(Application.dataPath + "/Images/Drone1");
@@ -24,25 +25,35 @@ public class Drone1LiveFeed : MonoBehaviour {
             myTextures.Add(www.texture);
         }
 
-        GetComponent<Renderer>().material.mainTexture = myTextures[frame];
+        //GetComponent<Renderer>().material.mainTexture = myTextures[frame];
         Debug.Log("Total count is" + myTextures.Count);
     }
-	
-	// Update is called once per frame
-	void Update () {
 
-        if (delay == 20)
+    // Update is called once per frame
+    void Update()
+    {
+        if (isEnabled)
         {
-            if (frame == myTextures.Count)
+           
+            if (delay == 20)
             {
-                frame = 0;
+                if (frame == myTextures.Count)
+                {
+                    frame = 0;
+                }
+                Debug.Log("Current frame is " + frame);
+                GetComponent<Renderer>().material.mainTexture = myTextures[frame];
+    
+                frame = frame + 1;
+                delay = 0;
             }
-            Debug.Log("Current frame is " + frame);
-            GetComponent<Renderer>().material.mainTexture = myTextures[frame];
-
-            frame = frame + 1;
-            delay = 0;
+            delay++;
         }
-        delay++;
+    }
+
+    public static void enableFeed()
+    {
+        Debug.Log("Enable Feed");
+        isEnabled = !isEnabled;
     }
 }
